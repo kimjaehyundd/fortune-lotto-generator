@@ -6,8 +6,8 @@ namespace FortuneLottoGenerator
 {
     public class LottoNumberGenerator
     {
-        private readonly Dictionary<string, int[]> elementNumbers;
-        private readonly Random random;
+        private Dictionary<string, int[]> elementNumbers;
+        private Random random;
 
         public LottoNumberGenerator()
         {
