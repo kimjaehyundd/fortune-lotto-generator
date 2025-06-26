@@ -21,11 +21,11 @@ namespace FortuneLottoGenerator
 
     public class FortuneInterpreter
     {
-        private readonly Dictionary<string, int> elementMappings;
-        private readonly Dictionary<string, string> emotionElements;
-        private readonly Dictionary<string, string> foodElements;
-        private readonly Dictionary<string, string> timeElements;
-        private readonly Dictionary<string, string> actionElements;
+        private Dictionary<string, int> elementMappings;
+        private Dictionary<string, string> emotionElements;
+        private Dictionary<string, string> foodElements;
+        private Dictionary<string, string> timeElements;
+        private Dictionary<string, string> actionElements;
 
         public FortuneInterpreter()
         {
