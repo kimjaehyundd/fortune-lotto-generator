@@ -44,11 +44,11 @@ namespace FortuneLottoGenerator
             emotionElements = new Dictionary<string, string>
             {
                 {"배고", "토"}, {"배가고파", "토"}, {"배가고픈", "토"},
-                {"슬픈", "금"}, {"슬픔", "금"}, {"슬픔다", "금"},
-                {"기쁘", "불"}, {"행복", "불"}, {"좋아", "불"},
+                {"슬픈", "금"}, {"슬펐", "금"}, {"슬펐다", "금"},
+                {"기쁜", "불"}, {"행복", "불"}, {"좋아", "불"},
                 {"화나", "불"}, {"화난", "불"}, {"짜증", "불"},
                 {"고민", "목"}, {"걱정", "목"}, {"스트레스", "목"},
-                {"피곤", "물"}, {"지치", "물"}, {"느낋", "물"}
+                {"피곤", "물"}, {"지쳐", "물"}, {"느릿", "물"}
             };
 
             // 음식과 오행 매핑
@@ -58,7 +58,7 @@ namespace FortuneLottoGenerator
                 {"고기", "불"}, {"소시지", "불"}, {"돼지", "불"}, {"치킨", "불"},
                 {"야채", "목"}, {"샐러드", "목"}, {"상추", "목"},
                 {"빵", "토"}, {"밥", "토"}, {"감자", "토"},
-                {"우유", "금"}, {"달가", "금"}, {"아이스크림", "금"}
+                {"우유", "금"}, {"달걀", "금"}, {"아이스크림", "금"}
             };
 
             // 시간과 오행 매핑
@@ -67,7 +67,7 @@ namespace FortuneLottoGenerator
                 {"아침", "목"}, {"새벽", "목"}, {"오전", "목"},
                 {"점심", "불"}, {"낮", "불"}, {"오후", "불"},
                 {"저녁", "토"}, {"저녁식사", "토"}, {"저녁때", "토"},
-                {"밤", "물"}, {"야식", "물"}, {"늘은밤", "물"},
+                {"밤", "물"}, {"야식", "물"}, {"늦은밤", "물"},
                 {"어제", "금"}, {"어제밤", "금"}, {"어젠", "금"}
             };
 
@@ -75,8 +75,8 @@ namespace FortuneLottoGenerator
             actionElements = new Dictionary<string, string>
             {
                 {"먹었", "토"}, {"먹어", "토"}, {"식사", "토"},
-                {"잘", "물"}, {"잠", "물"}, {"침대", "물"},
-                {"샰", "금"}, {"사죨", "금"}, {"돈", "금"},
+                {"잤", "물"}, {"잠", "물"}, {"침대", "물"},
+                {"샀", "금"}, {"사줘", "금"}, {"돈", "금"},
                 {"일", "불"}, {"일해", "불"}, {"공부", "불"},
                 {"산책", "목"}, {"운동", "목"}, {"어전", "목"}
             };
@@ -164,11 +164,11 @@ namespace FortuneLottoGenerator
             explanation.AppendLine();
             
             // 주요 운세 해석
-            explanation.AppendLine($"★ 주요 운세: {interpretation.MainElement}속({GetElementDescription(interpretation.MainElement)})");
+            explanation.AppendLine($"☆ 주요 운세: {interpretation.MainElement}속({GetElementDescription(interpretation.MainElement)})");
             explanation.AppendLine();
             
             // 오행 분석 결과
-            explanation.AppendLine("★ 오행 기운 분석:");
+            explanation.AppendLine("☆ 오행 기운 분석:");
             foreach (var element in interpretation.ElementValues.OrderByDescending(x => x.Value))
             {
                 if (element.Value > 0)
@@ -179,15 +179,15 @@ namespace FortuneLottoGenerator
             explanation.AppendLine();
             
             // 운세 해석
-            explanation.AppendLine("★ 운세 해석:");
+            explanation.AppendLine("☆ 운세 해석:");
             explanation.AppendLine($"   {GetFortuneInterpretation(interpretation.MainElement, story)}");
             explanation.AppendLine();
             
             // 로또 번호 의미
-            explanation.AppendLine("★ 로또 번호 의미:");
+            explanation.AppendLine("☆ 로또 번호 의미:");
             explanation.AppendLine($"   주요 {interpretation.MainElement}속 기운이 강하여, 이를 바탕으로 한 행운의 숫자를 제시합니다.");
             
-            explanation.AppendLine("╰───────────────────────────────────╯");
+            explanation.AppendLine("╰─────────────────────────────────╯");
             
             interpretation.Explanation = explanation.ToString();
         }
@@ -205,7 +205,11 @@ namespace FortuneLottoGenerator
                 {"금", "의리와 청렴"}, {"목", "성장과 발전"}, {"물", "지혜와 유연성"},
                 {"불", "열정과 활력"}, {"토", "안정과 신뢰"}
             };
-            return descriptions.GetValueOrDefault(element, "비밀의 운세");
+            
+            if (descriptions.ContainsKey(element))
+                return descriptions[element];
+            else
+                return "비밀의 운세";
         }
 
         private string GetElementMeaning(string element, int value)
@@ -247,8 +251,11 @@ namespace FortuneLottoGenerator
                 }}
             };
 
-            var elementInterpretations = interpretations.GetValueOrDefault(mainElement, 
-                new string[] { "비밀스러운 운세가 당신을 기다리고 있습니다." });
+            string[] elementInterpretations;
+            if (interpretations.ContainsKey(mainElement))
+                elementInterpretations = interpretations[mainElement];
+            else
+                elementInterpretations = new string[] { "비밀스러운 운세가 당신을 기다리고 있습니다." };
             
             Random random = new Random(story.GetHashCode());
             return elementInterpretations[random.Next(elementInterpretations.Length)];
