@@ -18,14 +18,12 @@ namespace FortuneLottoGenerator
         private void InitializeElementNumbers()
         {
             // 오행별 기본 숫자 범위
-            elementNumbers = new Dictionary<string, int[]>
-            {
-                {"금", new int[] {1, 6, 11, 16, 21, 26, 31, 36, 41}}, // 금속 성격의 숫자
-                {"목", new int[] {3, 8, 13, 18, 23, 28, 33, 38, 43}}, // 목속 성격의 숫자
-                {"물", new int[] {2, 7, 12, 17, 22, 27, 32, 37, 42}}, // 물속 성격의 숫자
-                {"불", new int[] {4, 9, 14, 19, 24, 29, 34, 39, 44}}, // 불속 성격의 숫자
-                {"토", new int[] {5, 10, 15, 20, 25, 30, 35, 40, 45}} // 토속 성격의 숫자
-            };
+            elementNumbers = new Dictionary<string, int[]>();
+            elementNumbers.Add("금", new int[] {1, 6, 11, 16, 21, 26, 31, 36, 41}); // 금속 성격의 숫자
+            elementNumbers.Add("목", new int[] {3, 8, 13, 18, 23, 28, 33, 38, 43}); // 목속 성격의 숫자
+            elementNumbers.Add("물", new int[] {2, 7, 12, 17, 22, 27, 32, 37, 42}); // 물속 성격의 숫자
+            elementNumbers.Add("불", new int[] {4, 9, 14, 19, 24, 29, 34, 39, 44}); // 불속 성격의 숫자
+            elementNumbers.Add("토", new int[] {5, 10, 15, 20, 25, 30, 35, 40, 45}); // 토속 성격의 숫자
         }
 
         public int[] GenerateNumbers(FortuneInterpretation interpretation)
